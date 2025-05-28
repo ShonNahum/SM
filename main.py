@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from pymongo import MongoClient, errors
 import yaml
 
 app = Flask(__name__)
-
+CORS(app)
 # Load config from env.yaml
 with open("env.yaml", "r") as f:
     config = yaml.safe_load(f)
