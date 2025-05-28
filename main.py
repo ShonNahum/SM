@@ -45,6 +45,14 @@ def store_key_value():
     except Exception as e:
         return jsonify({"error": f"Database error: {str(e)}"}), 500
 
+@app.route('/store', methods=['GET'])
+def get_all_key_values():
+    try:
+        docs = list(collection.find({}, {'_id': 0}))  # exclude MongoDB _id
+        return jsonify(docs), 200
+    except Exception as e:
+        return jsonify({"error": f"Database error: {str(e)}"}), 500
+
 @app.route('/store/<key>', methods=['GET'])
 def get_value(key):
     try:
