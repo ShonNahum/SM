@@ -2,4 +2,3 @@ flask
 pymongo
 pyyaml
 flask-cors
-gunicorn
