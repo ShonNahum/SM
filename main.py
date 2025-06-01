@@ -65,4 +65,4 @@ def get_value(key):
         return jsonify({"error": f"Database error: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=server_config["port"])
+    app.run(port=server_config["port"])
