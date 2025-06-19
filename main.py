@@ -62,7 +62,7 @@ def store_key_value():
     except Exception as e:
         return jsonify({"error": f"Database error: {str(e)}"}), 500
 
-@app.route("/metrics")
+@app.route("/metrics", methods=['GET'])
 def metrics():
     return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
 
