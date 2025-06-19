@@ -1,2 +1,2 @@
 @Library('shon_jenkins_shared_lib') _
-run_server()
+run_lint()
