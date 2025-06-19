@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from pymongo import MongoClient, errors
 import yaml
@@ -8,10 +8,8 @@ from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.exporter.prometheus import PrometheusMetricReader
-from prometheus_client import start_http_server
+from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 
-# Prometheus reads from this port (default Prometheus scrape target)
-PROMETHEUS_METRICS_PORT = 8888
 
 # Init Flask app
 app = Flask(__name__)
@@ -64,6 +62,11 @@ def store_key_value():
     except Exception as e:
         return jsonify({"error": f"Database error: {str(e)}"}), 500
 
+@app.route("/metrics")
+def metrics():
+    return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
+
+
 @app.route('/store', methods=['GET'])
 def get_all_key_values():
     try:
@@ -84,5 +87,4 @@ def get_value(key):
 
 if __name__ == '__main__':
     # 👇 Prometheus metrics exposed here
-    start_http_server(port=PROMETHEUS_METRICS_PORT)
     app.run(host='0.0.0.0', port=server_config["port"])
