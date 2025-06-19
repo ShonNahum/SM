@@ -2,3 +2,7 @@ flask
 pymongo
 pyyaml
 flask-cors
+opentelemetry-sdk
+opentelemetry-exporter-prometheus
+opentelemetry-instrumentation-flask
+prometheus_client
