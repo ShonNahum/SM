@@ -44,7 +44,7 @@ formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 # Loki handler
 loki_handler = LokiHandler(
     url=loki_config['url'],
-    tags={"app": "flask-app"},
+    tags={"app": "sm"},
     version="1",
 )
 loki_handler.setFormatter(formatter)
